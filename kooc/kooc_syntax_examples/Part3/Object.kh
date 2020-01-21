@@ -1,0 +1,30 @@
+@class	Object
+{
+  @member int	isInstanceOf(Object* other);
+  @member int	isInstanceOf(const char* otherClassName);
+  @member int	isKindOf(Object* other);
+  @member int	isKindOf(const char* otherClassName);
+}
+
+// Object.h
+Class*	pObject_Object_alloc();
+void	void_Object_delete_pObject(Object* self);
+
+typedef struct
+{
+  char*	type;
+  void	(*void_delete_pObject)(Object*);
+}	ObjectVtable;
+
+typedef struct
+{
+  ObjectVtable*	__vtable;
+}		Object;
+
+void	void_Object_init_pObject(Object* self);
+Object*	pObject_Object_new();
+
+int	int_Object_isInstanceOf_pObject_pObject(Object* self, Object* other);
+int	int_Object_isInstanceOf_pObject_pchar(Object* self, const char* otherClassName);
+int	int_Object_isKindOf_pObject_pObject(Object* self, Object* other);
+int	int_Object_isKindOf_pObject_pchar(Object* self, const char* otherClassName);

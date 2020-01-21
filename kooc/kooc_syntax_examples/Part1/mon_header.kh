@@ -1,0 +1,32 @@
+@module	a
+{
+  int		v = 3;
+  char		v = 7;
+  //  char*	str;
+
+  void		func();
+  void		func(int);
+  //  void		func(float);
+  int		func();
+};
+
+/*
+@module b
+{
+  int	var;
+  char	var;
+
+  void	func(int);
+  void	func(char);
+  void	func(t_struct (*)(e_bidule), char*[5]);
+}
+*/
+
+// mon_header.h
+
+extern int	int_a_v;
+extern char	char_a_v;
+
+void	void_a_func();
+void	void_a_func_int(int);
+int	int_a_func();

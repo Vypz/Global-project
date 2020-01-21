@@ -1,0 +1,8 @@
+typedef int Type;
+//@class Object{}
+//@import "Object.kh"
+/////////////// Mettre ce @import automatiquement
+@class C{
+  int i = 7;
+}
+void	func();

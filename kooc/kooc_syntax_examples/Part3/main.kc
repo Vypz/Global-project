@@ -1,0 +1,43 @@
+@import "Class.kh"
+
+int		main()
+{
+  Class*	class;
+  Parent*	parent;
+
+  class = [Class new];
+  parent = class;
+
+  [parent virtual_func];
+  [class virtual_func];
+  [Parent virtual_func :class];
+
+  [parent delete]
+
+  return 0;
+}
+
+
+// main.c:
+
+#ifndef CLASS_KH_
+#define CLASS_KH_
+#include "Class.h"
+#endif
+
+int		main()
+{
+  Class*	class;
+  Parent*	parent;
+
+  class = pClass_Class_new();
+  parent = class;
+
+  parent->__vtable->void_virtual_func_pParent(parent);
+  class->__vtable->void_virtual_func_pParent(class);
+  void_Parent_virtual_func_pParent(class);
+
+  parent->__vtable->void_Object_delete_pObject(parent);
+
+  return 0;
+}

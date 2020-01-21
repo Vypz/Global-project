@@ -1,0 +1,51 @@
+//int	n;
+@class	Object
+{
+  @member int i;
+  @virtual int	isInstanceOf(Object* other);
+  //@member int	isInstanceOf(const char* otherClassName);
+  @member int	isKindOf(Object* other);
+  //@member int	isKindOf(const char* otherClassName);
+}
+int _____________________________________________________________________________;
+//@class	Classe : Parent
+@class Classe
+  {
+  /*int		global_var = 7;
+  float		global_func(int n);
+  @member int	local_var;
+  @member int	local_func(int param);
+  @member void	init(int var, char* var2);
+  @member void	clean();*/
+  @virtual void	test();
+  }
+int _____________________________________________________________________________;
+
+/*int sep;
+
+@implementation Classe
+{
+  float	global_func(int n)
+  {
+    return (float)n + 2.5;
+  }
+
+  @member int	local_func(int param)
+  {
+    return param;
+    //    return [self.local_var];
+  }
+}
+*/
+@implementation Classe
+{}
+
+int	main()
+{
+  Classe *test;
+
+  [Classe isKindOf :test];
+  //  [test isKindOf];
+  //  [A.v] = [T func] + 32;
+  //  [Module global_func :p1 :(5+7-9) :[Module global_func :abc]];
+}

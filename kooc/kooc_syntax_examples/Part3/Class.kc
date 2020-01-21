@@ -1,0 +1,80 @@
+@import "Class.kh"
+
+@implement	Class
+{
+  @member void	func_in_class()
+  {}
+
+  @virtual void	virtual_func()
+  {
+    printf("Virtual function called from Class");
+  }
+
+  @virtual void	other_virtual()
+  {}
+}
+
+
+// Class.c:
+
+#include	<stdlib.h>
+#ifndef CLASS_KH_
+#define CLASS_KH_
+#include "Class.h"
+#endif
+
+Class*	pClass_Class_alloc()
+{
+  return malloc(sizeof(Class));
+}
+
+void	void_Class_init_vtable_pClass(Class* self)
+{
+  self.__vtable = realloc(self.__vtable, sizeof(Class_Vtable));
+  self->__vtable->type = "Object.Parent.Class";
+  self->__vtable->void_delete_pObject = void_Class_delete_pClass;
+  self->__vtable->void_virtual_func_pParent = void_Class_virtual_func_pClass;
+  self->__vtable->void_other_virtual_pClass = void_Class_other_virtual_pClass;
+}
+
+void	void_Class_delete_pClass(Class* self)
+{
+  free(self);
+}
+
+void	void_Class_init_pClass(Class* self)
+{
+  void_Parent_init_pParent(self);
+  void_Class_init_vtable_pClass(self);
+}
+
+Class*	pClass_Class_new()
+{
+  Class*	inst;
+
+  inst = pClass_Class_alloc();
+  void_Class_init_pClass(inst);
+  return inst;
+}
+
+void	void_Class_func()
+{
+  printf("Non-member func\n");
+}
+
+void	void_Class_member_func_pClass(Class* self)
+{
+  printf("Member func : self=%p\n", self);
+}
+
+
+void	void_Class_func_in_class_pClass(Class* self)
+{}
+
+void	void_Class_virtual_func_pClass(Class* self)
+{
+  printf("Virtual function called from Class");
+}
+
+void	void_Class_other_virtual_pClass(Class* self)
+{}

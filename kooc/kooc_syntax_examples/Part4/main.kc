@@ -1,0 +1,140 @@
+// ExampleException.kh :
+@class ExampleException : Exception
+{
+  @member char* msg;
+  @member void init(char* msg);
+}
+
+// ExampleException.kc :
+
+@implementation ExampleException
+{
+  @member void	init(char* msg)
+  {
+    [self.msg] = strdup(msg);
+  }
+
+  @member void	clean()
+  {
+    free([self.msg]);
+  }
+}
+
+// main.kc :
+
+void	func2()
+{
+  @throw (ExampleException*)("func2");
+}
+
+void	func1()
+{
+  @try
+    {
+      func2();
+    }
+  @catch(ExampleException* e)
+    {
+      printf("%s\n", [e.msg]);
+      return ;
+    }
+  @throw (ExampleException*)("func1");
+}
+
+
+int	main()
+{
+  @try
+    {
+      func1();
+    }
+  @catch (Exception* e)
+    {
+      printf("An exception occured.\n");
+      return 1;
+    }
+  return 0;
+}
+
+// main.c :
+
+#include	<setjmp.h>
+
+__thread jmp_buf	cur_env;
+__thread Exception*	cur_exception;
+
+
+void	func2()
+{
+  {
+    cur_exception = ExampleException_void_new_pchar("func2");
+    longjmp(cur_env, 1);
+  }
+}
+
+void	func1()
+{
+// @try
+  {
+    jmp_buf	old_env;
+
+    memcpy(old_end, cur_env, sizeof(*cur_env));
+    if (setjmp(cur_env) == 0)
+// { ... }
+      {
+	func2();
+      }
+// @catch(ExampleException* e)
+    else
+      {
+	memcpy(cur_env, old_env, sizeof(*old_env));
+	if (int_Object_isKindOf_pObject_pchar(cur_exception, "ExampleException"))
+	  longjmp(cur_env, 1);
+	ExampleException* e = cur_exception;
+// { ... }
+	{
+	  printf("%s\n", e->pchar_msg);
+	  e->void_delete_pException(e); // mettre avant chaque return, ou utiliser le __cleanup__
+	  return ;
+	}
+	e->void_delete_pException(e);
+      }
+    memcpy(cur_env, old_env, sizeof(*old_env));
+  }
+// End of try block
+
+// @throw "func1";
+  {
+    cur_exception = ExampleException_void_new_pchar("func1");
+    longjmp(cur_env, 1);
+  }
+}
+
+int	main()
+{
+  {
+    jmp_buf	old_env;
+
+    memcpy(old_end, cur_env, sizeof(*cur_env));
+    if (setjmp(cur_env) == 0)
+      {
+	func1();
+      }
+    else
+      {
+	memcpy(cur_env, old_env, sizeof(*old_env));
+	if (int_Object_isKindOf_pObject_pchar(cur_exception, "Exception"))
+	  longjmp(cur_env, 1);
+	// Ou balancer un avertissement pour dire que rien ne catch l'exception.
+	Exception* e = cur_exception;
+	{
+	  printf("An exception occured.\n");
+	  e->void_delete_pException(e);
+	  return 1;
+	}
+	e->void_delete_pException(e);
+      }
+    memcpy(cur_env, old_env, sizeof(*old_env));
+  }
+  return 0;
+}

@@ -1,0 +1,86 @@
+@import "Class.kh"
+
+@implement	Class
+{
+  void	func()
+  {
+    printf("Non-member func\n");
+  }
+
+  @member void	member_func()
+  {
+    printf("Member func : self=%p\n", self);
+  }
+
+  @member void	init()
+  {}
+
+  @member void	init(int n)
+  {
+    self->member_var = n;
+  }
+}
+
+
+// Class.c:
+
+#include	<stdlib.h>
+#ifndef CLASS_KH_
+#define CLASS_KH_
+#include "Class.h"
+#endif
+
+int	int_Class_var;
+
+Class*	pClass_Class_alloc()
+{
+  return malloc(sizeof(Class));
+}
+
+void	void_Class_delete_pClass(Class* self)
+{
+  void_Class_clean_pClass(self);
+  free(self);
+}
+
+void	void_Class_func()
+{
+  printf("Non-member func\n");
+}
+
+void	void_Class_member_func_pClass(Class* self)
+{
+  printf("Member func : self=%p\n", self);
+}
+
+
+void	void_Class_init_pClass(Class* self)
+{}
+
+Class*	pClass_Class_new()
+{
+  Class*	inst;
+
+  inst = pClass_Class_alloc();
+  void_Class_init_pClass(inst);
+  return inst;
+}
+
+void	void_Class_init_pClass_int(Class* self, int n)
+{
+  self->member_var = n;
+};
+
+Class*	pClass_Class_new_int(int n)
+{
+  Class*	inst;
+
+  inst = pClass_Class_alloc();
+  void_Class_init_pClass_int(inst, n);
+  return inst;
+}
+
+void	void_Class_clean_pClass(Class* self)
+{
+  printf("Cleaning class...\n");
+}

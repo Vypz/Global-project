@@ -1,0 +1,53 @@
+@import "Class.kh"
+@import "EmptyClass.kh"
+
+int		main()
+{
+  Class		class_inst;
+  EmptyClass*	emptyClass_inst;
+  int		n;
+
+  [&class_inst init :3];
+  n = [Class.var];
+  n = [inst.member_var];
+  [Class func];
+  [Class member_func &inst];
+  [&inst member_func];
+  [&inst clean];
+
+  emptyClass_inst = [EmptyClass new];
+  [emptyClass delete];
+
+  return 0;
+}
+
+
+// main.c:
+#ifndef CLASS_KH_
+#define CLASS_KH_
+#include "Class.h"
+#endif
+#ifndef EMPTYCLASS_KH_
+#define EMPTYCLASS_KH_
+#include "EmptyClass.h"
+#endif
+
+int		main()
+{
+  Class		class_inst;
+  EmptyClass*	emptyClass_inst;
+  int		n;
+
+  void_Class_init_pClass_int(&class_inst, 3);
+  n = int_Class_var;
+  n = inst.int_member_var;
+  void_Class_func();
+  void_Class_member_func_pClass(&inst);
+  void_Class_member_func_pClass(&inst);
+  void_Class_clean_pClass(&inst);
+
+  emptyClass_inst = pEmptyClass_EmptyClass_new();
+  void_EmptyClass_delete_pEmptyClass(emptyClass);
+
+  return 0;
+}

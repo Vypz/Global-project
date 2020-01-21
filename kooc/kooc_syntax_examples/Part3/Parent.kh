@@ -1,0 +1,30 @@
+@class	Parent
+{
+  @member int	member_var;
+  @member void	func();
+  @virtual void	virtual_func();
+}
+
+// Parent.h
+Class*	pParent_Parent_alloc();
+void	void_Parent_delete_pParent(Parent* self);
+
+typedef struct
+{
+  char*	type;
+  void	(*void_delete_pObject)(Object*);
+  void	(*void_virtual_func_pParent)(Parent*); // /!\ Ici, Parent n'est pas encore défini.
+  // Note de mangling : pour le nom de type dans le nom de fonction, on prendra le plus haut ayant cette function. Ou simplement Objet.
+}	ParentVtable;
+
+typedef struct
+{
+  ParentVtable*	__vtable;
+  int		int_member_var;
+}		Parent;
+
+void	void_Parent_init_pParent(Parent* self);
+Parent*	pParent_Parent_new();
+
+void	void_Parent_func_pParent(Parent* self);
+void	void_Parent_virtual_func_pParent(Parent* self);

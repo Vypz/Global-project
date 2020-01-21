@@ -1,0 +1,42 @@
+@import	Parent
+
+@class	Class : Parent
+{
+  @member int	member_var_in_class;
+  @member void	func_in_class();
+  @virtual void	virtual_func();
+  @virtual void	other_virtual();
+}
+
+
+// Class.h :
+
+#ifndef PARENT_KH_
+#define PARENT_KH_
+#include "Parent.h"
+#endif
+
+Class*	pClass_Class_alloc();
+void	void_Class_delete_pClass(Class* self);
+
+typedef struct
+{
+  char*	type;
+  void	(*void_delete_pObject)(Object*);
+  void	(*void_virtual_func_pParent)(Class* /* ou Parent* */);
+  void	(*void_other_virtual_pClass)(Class*);
+}	ClassVtable;
+
+typedef struct
+{
+  ClassVtable*	__vtable;
+  int		int_member_var;
+  int		int_member_var_in_class;
+}		Class;
+
+void	void_Class_init_pClass(Class* self);
+Class*	pClass_Class_new();
+
+void	void_Class_func_in_class_pClass(Class* self);
+void	void_Class_virtual_func_pClass(Class* self);
+void	void_Class_other_virtual_pClass(Class* self);

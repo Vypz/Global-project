@@ -1,0 +1,84 @@
+// .kh :
+@class	Class
+{
+  int	var;
+  void	func();
+
+  @member
+    {
+      int	mvar;
+      void	mfunc();
+    }
+}
+
+
+// .h :
+typedef struct
+{
+  int	mvar;
+}	Class;
+
+extern int	Class_var;
+void	Class_func();
+void	Class_mfunc(Class* self);
+
+
+// .kc:
+@implement	Class
+{
+  void	func()
+  {
+    printf("Non-member func\n");
+  }
+
+  @member void	mfunc()
+  {
+    printf("Member func : self=%p\n", self);
+  }
+}
+
+
+// .c:
+int	Class_var;
+
+void	Class_func()
+{
+  printf("Non-member func\n");
+}
+
+void	Class_mfunc(Class* self)
+{
+  printf("Member func : self=%p\n", self);
+}
+
+/*
+** Do new, init, delete
+*/
+
+
+// main.kc:
+int	main()
+{
+  Class	inst;
+
+  [Class.var];
+  [inst.mvar];
+  [Class func];
+  [Class mfunc &inst];
+  [&inst mfunc];
+  return 0;
+}
+
+
+// main.c:
+int	main()
+{
+  Class	inst;
+
+  Class_var;
+  inst.mvar;
+  Class_func();
+  Class_mfunc(&inst);
+  Class_mfunc(&inst);
+  return 0;
+}

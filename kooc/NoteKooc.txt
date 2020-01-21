@@ -1,0 +1,34 @@
+Note du Kooc
+1er suivi
+
+unité de compilation : passage d’un .c en .o
+Identifiant
+Symbole mangling : affiner le plus possible
+Signature de fonction 
+Opérateur de porter
+@module
+Faire un @module a la main
+Faire un début de BNF
+@import / Multi inclusion que faire des .h
+Voir ensemble pour designer le projet
+Répartir l’écriture des classes
+Faire un diagramme en UML pour les classes
+@import : que laisser dans le .c et que faire dans le .h
+UniTest en Python
+Ecrire le code de test
+Attribut Gcc Parti 4 
+Commencer avec des classes
+Syntaxe = détails 
+
+
+2eme suivi
+
+type primitif:
+fonction membre:
+Faire la partie 1 pour le suivi 3
+Schéma du compilateur
+doc: mettre les traductions, exemple et fichier de présentation
+Schéma pour voir comment tout fonctionne
+Annexe : Mettre les exemples et code générer
+Markdown pour crée une documentation
+

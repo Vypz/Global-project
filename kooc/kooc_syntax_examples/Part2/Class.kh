@@ -1,0 +1,36 @@
+@class	Class
+{
+  int	var;
+  void	func();
+
+  @member
+    {
+      int	member_var;
+      void	member_func();
+
+      void	init();
+      void	init(int);
+
+      void	clean();
+    }
+}
+
+
+// Class.h :
+
+Class*	pClass_Class_alloc();
+void	void_Class_delete_pClass(Class* self);
+
+typedef struct
+{
+  int	int_member_var;
+}	Class;
+
+extern int	int_Class_var;
+void	void_Class_func();
+void	void_Class_member_func_pClass(Class* self);
+void	void_Class_init_pClass(Class* self);
+Class*	pClass_Class_new();
+void	void_Class_init_pClass_int(Class* self, int);
+Class*	pClass_Class_new_int(int n);
+void	void_Class_clean_pClass(Class* self);

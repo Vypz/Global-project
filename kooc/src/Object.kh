@@ -1,0 +1,7 @@
+@class	Object
+{
+  @member int	isInstanceOf(Object* other);
+  @member int	isInstanceOf(const char* otherClassName);
+  @member int	isKindOf(Object* other);
+  @member int	isKindOf(const char* otherClassName);
+}

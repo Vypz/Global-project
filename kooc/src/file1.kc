@@ -1,0 +1,14 @@
+@import "file.kh"
+@import "file.kh" // Vérification pour la double inclusion
+
+int printf(char*, ...);
+
+int	main()
+{
+  Type	var; // Pour vérifier que le symbole du typedef est importé
+
+  func(); // Une fonction définie dans un autre fichier pour tester la compil de plusieurs fichiers.
+  var = 0; // On utilise un peu la variable pour que gcc fasse pas de warning derrière
+  printf("test: %s;%d\n", "abc", 7);
+  return var;
+}

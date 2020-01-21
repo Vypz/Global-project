@@ -1,0 +1,6 @@
+@import "file.kh"
+
+//@implementation Object{}
+@implementation C{}
+void	func()
+{}

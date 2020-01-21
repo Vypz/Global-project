@@ -1,0 +1,47 @@
+@import "mon_header.kh"
+
+@implementation	a
+{
+  void	func()
+  {
+    printf("Quelque chose\n");
+  }
+
+  void	func(int d)
+  {
+    printf("%d\n", d);
+  }
+
+  int	func()
+  {
+    return (printf("Quelque chose d'autre\n"));
+  }
+}
+
+// mon_header.c
+
+#ifndef MON_HEADER_KH_
+#define MON_HEADER_KH_
+#include "mon_header.h"
+#endif
+
+int	int_a_v_int = 3;
+char	char_a_v_char = 7;
+
+void	void_a_func()
+{
+  printf("Quelque chose\n");
+}
+
+int	int_a_func_int(int d)
+{
+  printf("%d\n", d);
+}
+
+int	int_a_func()
+{
+  return (printf("Quelque chose d'autre\n"));
+}
+
+
+//void	void_b_func_???

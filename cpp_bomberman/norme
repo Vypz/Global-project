@@ -1,0 +1,51 @@
+Noms :
+On utilisera la notation camelCase (chaqeu mot commence par une majuscule).
+Les noms de classe commencent par une majuscule, les noms de fonctions et de variable par une minuscule.
+Les noms de variables et fonctions en private ou protected sont précédées d'un underscore.
+
+Les extensions de fichier sont cpp pour les fichiers source, hh pour les headers, et hpp pour les headers contenant du code source (par exemple les headers contenant des function templates).
+Les noms de fichiers commencent par une majuscule si ils représente une classe, et par une minuscule sinon.
+L'utilisation d'underscore ou de camelCase pour séparer les mots dans les noms de fichier n'a pas été définie.
+
+
+
+Indentation et espacements :
+Les includes sont indentés avec des tab.
+#include	<map> // Correct
+#include <map> // incorrect
+Il en est de même avec les defines, y compris ceux pour protéger contre la double inclusion.
+
+Dans du code, les noms de variables sont séparés des types avec des tab.
+Les noms de variables sont alignés au même niveau.
+Le nom de la fonction est aligné avec ceux des variables.
+L'alignement est local à une fonction.
+Dans la déclaration d'une classe, les identifiants sont alignés à l'intérieur d'un même bloc.
+Les mots public, private et protected définissent un nouveau bloc d'alignement.
+Les constructeurs et destructeurs respectent l'intentation par défaut de notre emacs, et sont donc sur la gauche, à 2 espaces du bord.
+Si un constructeur ou un destructeur est virtuel, le mot clé virtual est assimilé au type, donc le nom du constructeur est aligné aux autres identifiants.
+
+Les * et & (pour indiquer un pointeur ou une référence) font partie du type et sont donc collées au type.
+Le const dans le type est, si possible, tout à gauche du type, ou juste après le volatile ou le static s'il y en a un.
+
+Les listes d'initialisation seront sur la ligne suivant le prototype de la fonction. Elles seront sur une seule ligne, sauf exceptions.
+~Destructeur()
+{}
+Je sais plus ce qu'on avait dit pour les accolades des fonctions vides.
+
+
+
+Commentaires et langue :
+Les commentaires // et /* ... */ sont acceptés. On utilise // pour une ou 2 lignes, /* ... *. si le commentaire est plus gros. Ces derniers respecteront la norme Epitech.
+Les commentaires dans le code sont en anglais.
+Les messages d'erreur sont en anglais.
+Les identifiants (noms de variables etc) sont en anglais.
+Les messages de commit sont en français.
+
+Chaque fichier source sera commencé par le header de l'école, créé avec C-c C-h sous emacs.
+Les fichiers headers seront protégés contre la double inclusion par un #ifdef [...] #endif.
+Les #endif sont suivis d'un rappel du if correspondant.
+Par exemple : #endif /* !CASE_HH_ */
+
+
+
+Ce fichier n'est peut être pas complet, j'ai pu oublier des éléments. Il peut donc être modifié et complété par n'importe qui, à condition que tous les membres du groupe soient d'accord.

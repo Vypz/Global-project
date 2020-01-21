@@ -1,0 +1,106 @@
+// __vtable[0]: "Object.Parent.Type"
+
+@implementation Object
+{
+  int	isInstanceOf(Object* other)
+  {
+    if (strcmp((char*)self.__vtable[0], (char*)other.__vtable[0]) == 0)
+      return 1;
+    else
+      return 0;
+  }
+
+  int		isInstanceOf(const char* otherClassName)
+  {
+    char*	selfClassName;
+
+    selfClassName = (char*)self.__vtable[0];
+    if (strrchr(selfClassName, '.'))
+      selfClassName = strrchr(selfClassName, '.') + 1;
+    if (strcmp(selfClassName, otherClassName) == 0)
+      return 1;
+    else
+      return 0;
+  }
+
+  int	isKindOf(Object* other)
+  {
+    if (strncmp((char*)self.__vtable[0], (char*)other.__vtable[0], strlen((char*)other.__vtable[0])) == 0 &&
+	((char*)self.__vtable[strlen((char*)other.__vtable[0])] == '.' || (char*)self.__vtable[strlen((char*)other.__vtable[0])] == '\0'))
+      return 1;
+    else
+      return 0;
+  }
+
+  int		isKindOf(const char* otherClassName)
+  {
+    const char*	selfClassName = (char*)self.__vtable[0];
+
+    while ((selfClassName = strstr(selfClassName, otherClassName)) != NULL)
+      if ((selfClassName == self.__vtable[0] || selfClassName[-1] == '.') &&
+	  (selfClassName[strlen(otherClassName)] == '.' ||
+	   selfClassName[strlen(otherClassName)] == '\0'))
+	return 1;
+    return 0;
+  }
+}
+
+// Utilisations :
+
+int		main()
+{
+  Parent*	instance = [Type new];
+  Parent*	parent = [Parent new];
+
+  [instance isInstanceOf instance];	// true
+  [instance isInstanceOf "Type"];	// true
+  [instance isInstanceOf parent];	// false
+  [instance isInstanceOf "Parent"];	// false
+
+  [instance isKindOf instance];		// true
+  [instance isKindOf "Type"];		// true
+  [instance isKindOf parent];		// true
+  [instance isKindOf "Parent"];		// true
+  [instance isKindOf 5];		// false
+  [instance isKindOf "int"];		// false
+
+  return 0;
+}
+
+
+
+@class Parent
+{
+  @virtual void isInstanceOf();
+  @virtual void isKindOf();
+}
+
+@class Type : Parent
+{
+  @virtual void	isKindOf();
+}
+
+typedef struct
+{
+  void	(*__vtable)()[];
+}	Parent;
+
+{
+  Parent__isInstanceOf;
+  Parent__isKindOf;
+}
+
+{
+  Parent__isInstanceOf;
+  Parent__isKindOf;
+}
+
+self->(*__vtable)[1] = Type__isKindOf;
+
+
+
+[instance isKindOf :"Type"];
+instance->(*__vtable)[1]("Type");
+
+[Parent isKindOf :instance :"Type"];
+Parent__isKindOf(instance, "Type");

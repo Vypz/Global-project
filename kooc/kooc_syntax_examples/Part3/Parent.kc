@@ -1,0 +1,66 @@
+@import "Parent.kh"
+
+@implement	Parent
+{
+  @member void	func()
+  {}
+
+  @virtual void	virtual_func()
+  {
+    printf("Virtual function called from Parent");
+  }
+}
+
+// Parent.c:
+
+#ifndef OBJECT_KH_
+#define OBJECT_KH_
+#include "Object.h"
+#endif
+#include	<stdlib.h>
+#ifndef PARENT_KH_
+#define PARENT_KH_
+#include "Parent.h"
+#endif
+
+Parent*	pParent_Parent_alloc()
+{
+  return malloc(sizeof(Parent));
+}
+
+void	void_Parent_init_vtable_pParent(Parent* self)
+{
+  self.__vtable = realloc(self.__vtable, sizeof(Parent_Vtable));
+  // La classe Object s'occupera d'alloc __vtable.
+  self->__vtable->type = "Object.Parent";
+  self->__vtable->void_delete_pObject = void_Parent_delete_pParent;
+  self->__vtable->void_virtual_func_pParent = void_Parent_virtual_func_pParent;
+}
+
+void	void_Parent_delete_pParent(Parent* self)
+{
+  free(self);
+}
+
+void		void_Parent_init_pParent(Parent* self)
+{
+  void_Object_init_pObject(self);
+  void_Parent_init_vtable_pParent(self);
+}
+
+Parent*	pParent_Parent_new()
+{
+  Parent*	inst;
+
+  inst = pParent_Parent_alloc();
+  void_Parent_init_pParent(inst);
+  return inst;
+}
+
+void	void_Parent_func_pParent(Parent* self)
+{}
+
+void	void_Parent_virtual_func_pParent(Parent* self)
+{
+  printf("Virtual function called from Parent");
+}

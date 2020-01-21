@@ -1,0 +1,34 @@
+@import "EmptyClass.kh"
+
+@implement	EmptyClass
+{}
+
+// EmptyClass.c:
+
+#include	<stdlib.h>
+#ifndef EMPTYCLASS_KH_
+#define EMPTYCLASS_KH_
+#include "EmptyClass.h"
+#endif
+
+EmptyClass*	pEmptyClass_EmptyClass_alloc()
+{
+  return malloc(sizeof(EmptyClass));
+}
+
+void	void_EmptyClass_delete_pEmptyClass(EmptyClass* self)
+{
+  free(self);
+}
+
+void		void_EmptyClass_init_pEmptyClass(EmptyClass* self)
+{}
+
+EmptyClass*	pEmptyClass_EmptyClass_new()
+{
+  EmptyClass*	inst;
+
+  inst = pEmptyClass_EmptyClass_alloc();
+  void_EmptyClass_init_pEmptyClass(inst);
+  return inst;
+}

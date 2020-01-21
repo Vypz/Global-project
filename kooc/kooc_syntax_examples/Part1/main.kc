@@ -1,0 +1,46 @@
+@import "mon_header.kh"
+
+int	main()
+{
+  int	var;
+
+  [a func];
+  [a func :7];
+  //  [a func :3.8];
+  void_a_func_int(7);
+  var = [a func];
+  @!(int)[a func]
+  var = [a.v];
+
+
+
+  //  [b func :[b.var]];
+  //  [b func :@!(int)[b.var]];
+
+
+
+  //  *[a.str] = '\0';
+  return (0);
+}
+
+
+// main.c
+
+#ifndef MON_HEADER_KH_
+#define MON_HEADER_KH_
+#include "mon_header.h"
+#endif
+
+int	main()
+{
+  int	var;
+
+  void_a_func();
+  void_a_func_int(7);
+  void_a_func_int(7);
+  var = int_a_func();
+  int_a_func();
+  var = int_a_v;
+
+  return (0);
+}

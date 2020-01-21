@@ -1,0 +1,59 @@
+﻿Symbol Mangling step by step
+
+Nous commencons notre symbole mangling en préposant au nom de la variable son
+type séparé par un underscore.
+Si le type n'est pas natif nous préposons son nom par sa taille sur 3 digits.
+Ainsi, pour rentrer dans le cadre d'un nom de fonction valide, nous préposerons
+toujours les types d'un underscore.
+
+KOOC			C
+
+int		var;	int	_int_var;
+void		func(); void	_void_func();
+t_struct	s;	t_smth	_008t_struct_s;
+
+Les pointeurs sont manglés en itérant la lettre 'p' devant le type de
+référence.
+
+KOOC	      	   	C
+
+t_struct	*s;	t_struct*	p_008t_struct_s;
+char		**c;	char**		pp_char_c;
+
+Nous ajoutons à la suite du symbole le type des paramètres de la fonction.
+Pour séparer le nom de la fonction de ses paramètres et éviter les conflits,
+nous précédons le nom de la fonction par sa taille sur 3 digits.
+
+KOOC 	      	   	               C
+
+int	function(int);	    	       int	_int_008function_int(int);
+int	function_int();    	       int	_int_012function_int();
+
+Pour préciser l'appartenance à un module ou une classe, le nom de cette dernière
+sera ajouté au début du symbole, ainsi que sa taille sur 3 digits,
+précédée d'un underscore pour que le nom soit valide.
+
+KOOC	   	    	      	 C
+
+@class Class
+{
+  @member void func_in_class();	 void	_005Class_void_013func_in_class();
+}
+
+Les pointeurs sur fonctions sont manglés par le caractère 'f' suivi du nombre
+de paramètres, puis des paramètres et enfin du type de retour.
+
+KOOC	      	  	    	 	C
+
+void	func(void (*)(), int);		void	_void_004funcpf0_void_int(void (*)(), int);
+void	func(void (*)(int));		void	_void_004funcpf1_int_void(void (*)(int));
+
+Cas particuliers:
+
+- Dans le cas d'une fonction, d'une variable ou d'un type dont le nom
+dépasse les 999 caractères (limite de nos 3 digits), une erreur sera lancée.
+
+- Les fonctions virtuelles ne seront pas précédées du nom de la classe à
+laquelle elles appartiennent car elles sont définient dans une vtable.
+
+- Les tableaux sont des pointeurs, ils sont donc manglés sous cette forme.

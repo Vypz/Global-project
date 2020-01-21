@@ -1,0 +1,1 @@
+g++ Audio.c++ -L. -lfmodex64 -Wl,-rpath,.

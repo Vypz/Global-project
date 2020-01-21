@@ -1,0 +1,15 @@
+// Cette exemple de classe sert notamment à montrer le comportement lorsqu'aucune fonction
+// init ou clean n'est déclarée.
+@class	EmptyClass
+{}
+
+// EmptyClass.h :
+EmptyClass*	pEmptyClass_EmptyClass_alloc();
+void	void_EmptyClass_delete_pEmptyClass(Class* self);
+
+typedef struct
+{
+}	EmptyClass;
+
+void		void_EmptyClass_init_pEmptyClass(EmptyClass* self);
+EmptyClass*	pEmptyClass_EmptyClass_new();

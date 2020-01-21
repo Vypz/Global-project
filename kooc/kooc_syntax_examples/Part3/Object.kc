@@ -1,0 +1,130 @@
+@import "Object.kh"
+
+@implementation	Object
+{
+  @member int	isInstanceOf(Object* other)
+  {
+    if (strcmp(self->__vtable->type, other->__vtable->type) == 0)
+      return 1;
+    else
+      return 0;
+  }
+
+  @member int	isInstanceOf(const char* otherClassName)
+  {
+    const char*	selfClassName;
+
+    selfClassName = self->__vtable->type;
+    if (strrchr(selfClassName, '.'))
+      selfClassName = strrchr(selfClassName, '.') + 1;
+    if (strcmp(selfClassName, otherClassName) == 0)
+      return 1;
+    else
+      return 0;
+  }
+
+  @member int	isKindOf(Object* other)
+  {
+    if (strncmp(self->__vtable->type, other->__vtable->type, strlen(other->__vtable->type)) == 0 &&
+	(self->__vtable->type[strlen(other->__vtable->type)] == '.' ||
+	 self->__vtable->type[strlen(other->__vtable->type)] == '\0'))
+      return 1;
+    else
+      return 0;
+  }
+
+  @member int	isKindOf(const char* otherClassName)
+  {
+    const char*	selfClassName = self->__vtable->type;
+
+    while ((selfClassName = strstr(selfClassName, otherClassName)) != NULL)
+      if ((selfClassName == self.__vtable[0] || selfClassName[-1] == '.') &&
+	  (selfClassName[strlen(otherClassName)] == '.' ||
+	   selfClassName[strlen(otherClassName)] == '\0'))
+	return 1;
+    return 0;
+  }
+}
+
+// Object.c:
+
+#include	<stdlib.h>
+#ifndef OBJECT_KH_
+#define OBJECT_KH_
+#include "Object.h"
+#endif
+
+Object*	pObject_Object_alloc()
+{
+  return malloc(sizeof(Object));
+}
+
+void	void_Object_init_vtable_pObject(Object* self)
+{
+  self->__vtable = malloc(sizeof(Object_Vtable));
+  self->__vtable->type = "Object";
+  self->__vtable->void_delete_pObject = void_Object_delete_pObject;
+}
+
+void	void_Object_delete_pObject(Object* self)
+{
+  free(self);
+}
+
+void		void_Object_init_pObject(Object* self)
+{
+  void_Object_init_vtable_pObject(self);
+}
+
+Object*	pObject_Object_new()
+{
+  Object*	inst;
+
+  inst = pObject_Object_alloc();
+  void_Object_init_pObject(inst);
+  return inst;
+}
+
+
+int	int_Object_isInstanceOf_pObject_pObject(Object* self, Object* other)
+{
+  if (strcmp(self->__vtable->type, other->__vtable->type) == 0)
+    return 1;
+  else
+    return 0;
+}
+
+int	int_Object_isInstanceOf_pObject_pchar(Object* self, const char* otherClassName)
+{
+  const char*	selfClassName;
+
+  selfClassName = self->__vtable->type;
+  if (strrchr(selfClassName, '.'))
+    selfClassName = strrchr(selfClassName, '.') + 1;
+  if (strcmp(selfClassName, otherClassName) == 0)
+    return 1;
+  else
+    return 0;
+}
+
+int	int_Object_isKindOf_pObject_pObject(Object* self, Object* other)
+{
+  if (strncmp(self->__vtable->type, other->__vtable->type, strlen(other->__vtable->type)) == 0 &&
+      (self->__vtable->type[strlen(other->__vtable->type)] == '.' ||
+       self->__vtable->type[strlen(other->__vtable->type)] == '\0'))
+    return 1;
+  else
+    return 0;
+}
+
+int	int_Object_isKindOf_pObject_pchar(Object* self, const char* otherClassName)
+{
+  const char*	selfClassName = self->__vtable->type;
+
+  while ((selfClassName = strstr(selfClassName, otherClassName)) != NULL)
+    if ((selfClassName == self.__vtable[0] || selfClassName[-1] == '.') &&
+	(selfClassName[strlen(otherClassName)] == '.' ||
+	 selfClassName[strlen(otherClassName)] == '\0'))
+      return 1;
+  return 0;
+}
