@@ -1,0 +1,23 @@
+table {
+border: medium solid #000000;
+width: auto;
+margin-left: 40px;
+margin-top: 40px;
+}
+th, tr {
+border: thin solid #6495ed;
+width: auto;
+}
+
+td {
+  border: thin solid #6495ed;
+  text-align: center;
+  width: auto;
+  min-width: 150px;
+}
+
+.table2 {
+  width: 1200px;
+  min-width: 300px;
+  text-align: center;
+}

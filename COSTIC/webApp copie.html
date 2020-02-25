@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>COSTIC</title>
+
+<!-- Reset.css Pour mettre à 0 le CSS  -->
+<link rel="stylesheet" href="reset.css">
+</head>
+
+<body>
+
+		<!-- Affichage du formulaire  -->
+    <form id="form1" name="form1" method="" action="">
+
+    <table width="400" border="0">
+        <tr>
+            <td>Champ1</td>
+            <td><input name="champ1" type="text" id="champ1"></td>
+        </tr>
+        <tr>
+            <td>Champ2</td>
+            <td><input type="text" id="champ2"></td>
+        </tr>
+        <tr>
+            <td>Champ3</td>
+            <td><input name="champ3" type="text" id="champ3"></td>
+        </tr>
+        <tr>
+            <td>Total_champ</td>
+            <td><textarea name="Total_champ" cols="15" rows="2" id="Total_champ"></textarea></td>
+        </tr>
+				<tr>
+						<td>
+							<select class="yesNo" name="yesNo" id="yesNo-select">
+										<option value=""> --Choisir une réponse-- </option>
+										<option value="yes">Oui</option>
+										<option value="no">Non</option>
+							</select>
+						</td>
+				</tr>
+        <tr>
+            <td colspan="2"><input type="button" name="Concatener" value="Concatener" onclick="ModifChampText()"></td>
+        </tr>
+        </table>
+    </form>
+
+<!-- Connexion JS / CSS  -->
+<script type="text/javascript" src="app.js"></script>
+<link rel="stylesheet" href="master.css">
+
+</body>
+</html>
